@@ -30,34 +30,34 @@
  *    
  */
 class Banco_104 extends Boleto{
-    function setUp(){
-        $this->bank_name             = 'Caixa Econ&ocirc;mica Federal';
+    function setUp($boleto){
+        $boleto->bank_name             = 'Caixa Econ&ocirc;mica Federal';
     }
     //Implementation of Febraban free range set from position 20 to 44
-    function febraban_20to44(){
+    function febraban_20to44($boleto){
         //concatenate carteira_nosso_numero and nosso_numero
-        $this->computed['nosso_numero'] = $this->arguments['carteira_nosso_numero'].$this->arguments['nosso_numero'];
+        $boleto->computed['nosso_numero'] = $boleto->arguments['carteira_nosso_numero'].$boleto->arguments['nosso_numero'];
  
         //positons 20 to 29
-        $this->febraban['20-44'] = $this->computed['nosso_numero'];
+        $boleto->febraban['20-44'] = $boleto->computed['nosso_numero'];
         //positons 30 to 33
-        $this->febraban['20-44'] .= $this->arguments['agencia'];
+        $boleto->febraban['20-44'] .= $boleto->arguments['agencia'];
         //positons 34 to 43
-        $this->febraban['20-44'] .= str_pad($this->arguments['conta'], 10, 0, STR_PAD_LEFT);
+        $boleto->febraban['20-44'] .= str_pad($boleto->arguments['conta'], 10, 0, STR_PAD_LEFT);
     }
 
     //customize object to meet specific needs
-    function custom(){
+    function custom($boleto){
          //set nosso_numero check digit
-        $checkDigit = $this->modulo_11($this->computed['nosso_numero']);
+        $checkDigit = $boleto->modulo_11($boleto->computed['nosso_numero']);
         //now concatenate nosso_numero_com_dv with its check digit
-        $this->computed['nosso_numero'] = $this->computed['nosso_numero'].'-'.$checkDigit['digito'];      
+        $boleto->computed['nosso_numero'] = $boleto->computed['nosso_numero'].'-'.$checkDigit['digito'];      
                
     }
 
     //manipulate output fields before them getting rendered. This method is called by output().
-    function outputValues(){
-        $this->output['nosso_numero'] = $this->computed['nosso_numero'];
+    function outputValues($boleto){
+        $boleto->output['nosso_numero'] = $boleto->computed['nosso_numero'];
     }
 }
 ?>
