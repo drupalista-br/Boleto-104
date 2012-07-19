@@ -11,11 +11,13 @@ class TestOf104 extends BoletoTestCase{
 
   function mockingArguments() {
     $this->mockingArguments = array(
-      'bank_code' => '104',
-      'agencia' => 1234,
-      'conta' => 12345678901,
-      'carteira_nosso_numero' => '80',
-      'nosso_numero' => '12345678',
+      array(
+        'bank_code' => '104',
+        'agencia' => 1234,
+        'conta' => 12345678901,
+        'carteira_nosso_numero' => '80',
+        'nosso_numero' => '12345678',
+      ),
     );
   }
 }
